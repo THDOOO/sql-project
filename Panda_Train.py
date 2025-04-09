@@ -1,6 +1,7 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 df = pd.read_excel('C:\\Users\\RickE\\Downloads\\movies.xls')
-grouped_data =  df.groupby('Year')['IMDB Score'].agg(['mean', 'count'])
-filtered_data =  grouped_data[grouped_data['count']>5]
-ordered_data = filtered_data.sort_values('count', ascending=False)
-print(ordered_data)
+
+high_rated_movies = df.loc[df['Year'] > 1000, ['Title', 'IMDB Score']]
+print(df.columns)                 
+print(high_rated_movies)
