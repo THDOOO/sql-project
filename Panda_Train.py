@@ -1,17 +1,19 @@
-import pandas as pd
-import matplotlib.pyplot as plt
-df = pd.read_excel('C:\\Users\\RickE\\Downloads\\movies.xls')
-genres_list = df['Genres'].str.split('|').explode()
+import seaborn as sns
 
-# Count the occurrences of each genre
-genre_counts = genres_list.value_counts()
+# Titanic-Daten laden
+titanic = sns.load_dataset('titanic')
 
-# Get the top 5 and bottom 5 genres
-top_5_genres = genre_counts.head(5)
-bottom_5_genres = genre_counts.tail(5)
 
-print("Top 5 most common genres:")
-print(top_5_genres)
+# Zeige fehlende Werte
+print(titanic.isnull().sum())
 
-print("\nFlop 5 least common genres:")
-print(bottom_5_genres)
+# Beispielsweise: Fehlende Werte für 'age' mit dem Median füllen
+titanic['age'].fillna(titanic['age'].median(), inplace=True)
+
+# Fehlende Werte in 'embarked' mit dem häufigsten Wert füllen
+titanic['embarked'].fillna(titanic['embarked'].mode()[0], inplace=True)
+
+# Überprüfen, ob noch fehlende Werte vorhanden sind
+print(titanic.isnull().sum())
+
+
